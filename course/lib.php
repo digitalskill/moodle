@@ -441,6 +441,7 @@ function get_array_of_activities($courseid) {
                    $mod[$seq]->extra            = "";
                    $mod[$seq]->completiongradeitemnumber =
                            $rawmods[$seq]->completiongradeitemnumber;
+                   $mod[$seq]->passinggradeitemnumber = $rawmods[$seq]->passinggradeitemnumber;
                    $mod[$seq]->completionview   = $rawmods[$seq]->completionview;
                    $mod[$seq]->completionexpected = $rawmods[$seq]->completionexpected;
                    $mod[$seq]->showdescription  = $rawmods[$seq]->showdescription;

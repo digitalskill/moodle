@@ -710,6 +710,8 @@ class course_modinfo {
  *    course_modules table
  * @property-read mixed $completiongradeitemnumber Set to the item number (usually 0) if completion depends on a particular
  *    grade of this activity, or null if completion does not depend on a grade - from course_modules table
+ * @property-read mixed $passinggradeitemnumber Set to the item number (usually 0) if completion depends on a particular
+ *    grade of this activity, or null if completion does not depend on a grade - from course_modules table
  * @property-read int $completionview 1 if 'on view' completion is enabled, 0 otherwise - from course_modules table
  * @property-read int $completionexpected Set to a unix time if completion of this activity is expected at a
  *    particular time, 0 if no time set - from course_modules table
@@ -881,6 +883,14 @@ class cm_info implements IteratorAggregate {
      * @var mixed
      */
     private $completiongradeitemnumber;
+
+    /**
+     * Set to the item number (usually 0) if completion depends on a passing
+     * grade for assignment activity, or null if completion does not depend on a passing grade - from
+     * course_modules table
+     * @var mixed
+     */
+    private $passinggradeitemnumber;
 
     /**
      * 1 if 'on view' completion is enabled, 0 otherwise - from course_modules table
@@ -1080,6 +1090,7 @@ class cm_info implements IteratorAggregate {
         'completion' => false,
         'completionexpected' => false,
         'completiongradeitemnumber' => false,
+        'passinggradeitemnumber' => false,
         'completionview' => false,
         'conditionscompletion' => false,
         'conditionsfield' => false,
@@ -1535,7 +1546,7 @@ class cm_info implements IteratorAggregate {
         // Standard fields from table course_modules.
         static $cmfields = array('id', 'course', 'module', 'instance', 'section', 'idnumber', 'added',
             'score', 'indent', 'visible', 'visibleoncoursepage', 'visibleold', 'groupmode', 'groupingid',
-            'completion', 'completiongradeitemnumber', 'completionview', 'completionexpected',
+            'completion', 'completiongradeitemnumber', 'passinggradeitemnumber', 'completionview', 'completionexpected',
             'showdescription', 'availability', 'deletioninprogress');
         foreach ($cmfields as $key) {
             $cmrecord->$key = $this->$key;
@@ -1740,6 +1751,8 @@ class cm_info implements IteratorAggregate {
         $this->completion = isset($mod->completion) ? $mod->completion : 0;
         $this->completiongradeitemnumber = isset($mod->completiongradeitemnumber)
                 ? $mod->completiongradeitemnumber : null;
+        $this->passinggradeitemnumber = isset($mod->passinggradeitemnumber)
+            ? $mod->passinggradeitemnumber : null;
         $this->completionview = isset($mod->completionview)
                 ? $mod->completionview : 0;
         $this->completionexpected = isset($mod->completionexpected)

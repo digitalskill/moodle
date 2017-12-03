@@ -2976,5 +2976,20 @@ function xmldb_main_upgrade($oldversion) {
         upgrade_main_savepoint(true, 2017051503.02);
     }
 
+    if ($oldversion < 2017051503.06) {
+
+        // Define field basicauth to be added to oauth2_issuer.
+        $table = new xmldb_table('course_modules');
+        $field = new xmldb_field('passinggradeitemnumber', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+
+        // Conditionally add passigngradeitemnumber.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Main savepoint reached.
+        upgrade_main_savepoint(true, 2017051503.06);
+    }
+
     return true;
 }
