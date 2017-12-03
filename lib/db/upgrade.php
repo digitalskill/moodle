@@ -2268,29 +2268,19 @@ function xmldb_main_upgrade($oldversion) {
         upgrade_main_savepoint(true, 2018062800.03);
     }
 
-    if ($oldversion < 2018072500.00) {
-        // Find all duplicate top level categories per context.
-        $duplicates = $DB->get_records_sql("SELECT qc1.*
-                                              FROM {question_categories} qc1
-                                              JOIN {question_categories} qc2
-                                                ON qc1.contextid = qc2.contextid AND qc1.id <> qc2.id
-                                             WHERE qc1.parent = 0 AND qc2.parent = 0
-                                          ORDER BY qc1.contextid, qc1.id");
+    if ($oldversion < 2018072300.01) {
 
-        // For each context, let the first top category to remain as top category and make the rest its children.
-        $currentcontextid = 0;
-        $chosentopid = 0;
-        foreach ($duplicates as $duplicate) {
-            if ($currentcontextid != $duplicate->contextid) {
-                $currentcontextid = $duplicate->contextid;
-                $chosentopid = $duplicate->id;
-            } else {
-                $DB->set_field('question_categories', 'parent', $chosentopid, ['id' => $duplicate->id]);
-            }
+        // Add Passing Grade working for Assignments.
+        $table = new xmldb_table('course_modules');
+        $field = new xmldb_field('passinggradeitemnumber', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+
+        // Conditionally add passigngradeitemnumber.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
         }
 
         // Main savepoint reached.
-        upgrade_main_savepoint(true, 2018072500.00);
+        upgrade_main_savepoint(true, 2018072300.01);
     }
 
     return true;
