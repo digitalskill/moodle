@@ -347,7 +347,10 @@ class core_test_generator_testcase extends advanced_testcase {
         $this->assertEquals($featurecompletionautomatic['completion'], $cm3->completion);
         $this->assertEquals($featurecompletionautomatic['completionview'], $cm3->completionview);
         $this->assertEquals(0, $cm3->completiongradeitemnumber); // Zero instead of default null since 'completionusegrade' was set.
-        $gradingitem = grade_item::fetch(array('courseid'=>$course->id, 'itemtype'=>'mod', 'itemmodule' => 'assign', 'iteminstance' => $m3->id));
+        $gradingitem = grade_item::fetch(array('courseid' => $course->id,
+            'itemtype' => 'mod',
+            'itemmodule' => 'assign',
+            'iteminstance' => $m3->id));
         $this->assertEquals(0, $gradingitem->grademin);
         $this->assertEquals($featuregrade['grade'], $gradingitem->grademax);
         $this->assertEquals($featuregrade['gradecat'], $gradingitem->categoryid);
@@ -360,7 +363,10 @@ class core_test_generator_testcase extends advanced_testcase {
         $this->assertEquals($featurecompletionautomaticpassing['completionview'], $cm5->completionview);
         $this->assertEquals(0, $cm5->completiongradeitemnumber); // Zero instead of default null since 'completionusegrade' was set.
         $this->assertEquals(0, $cm5->passinggradeitemnumber); // Zero instead of default null since 'completiongradeitemnumber' was set.
-        $gradingitem = grade_item::fetch(array('courseid'=>$course->id, 'itemtype'=>'mod', 'itemmodule' => 'assign', 'iteminstance' => $m5->id));
+        $gradingitem = grade_item::fetch(array('courseid' => $course->id,
+            'itemtype' => 'mod',
+            'itemmodule' => 'assign',
+            'iteminstance' => $m5->id));
         $this->assertEquals(0, $gradingitem->grademin);
         $this->assertEquals($featuregrade['grade'], $gradingitem->grademax);
         $this->assertEquals($featuregrade['gradecat'], $gradingitem->categoryid);
