@@ -9,6 +9,21 @@
     .container {
         width: auto;
     }
+
+    // Firefox fix.
+    * { overflow: visible !important; height:auto !important; }
+    #page-content,
+    #region-main .card,
+    #region-main,
+    .responsehistoryheader,
+    #region-main .row {display:block !important; float:none !important; }
+    .qtype_essay_response{padding:5px;}
+    .qtype_essay_response *{
+        color:#000;
+    }
+
+    #region-main .m-t-2.m-b-1{display:none;}
+    #page-footer{clear:both;display:block;}
 }
 
 
